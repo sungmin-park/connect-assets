@@ -174,7 +174,8 @@ class ConnectAssets
             @cssSourceFiles[sourcePath] = {data, mtime: stats.mtime}
             source = data.toString 'utf8'
           startTime = new Date
-          css = cssCompilers[ext].compileSync @absPath(sourcePath), source
+          css = @fixCSSImagePaths \
+            cssCompilers[ext].compileSync @absPath(sourcePath), source
           if css is @compiledCss[sourcePath]?.data.toString 'utf8'
             alreadyCached = true
           else
